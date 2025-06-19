@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Keylogger-Lite/1.0.0": {
+        "runtime": {
+          "Keylogger-Lite.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Keylogger-Lite/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
