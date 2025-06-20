@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Keylogger-Lite")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fdbc62acfcedb9cb96a8150f6ef5863d9f48b20b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7b26ece95812cd8cda4a5c96a432eeda426ac736")]
 [assembly: System.Reflection.AssemblyProductAttribute("Keylogger-Lite")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Keylogger-Lite")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

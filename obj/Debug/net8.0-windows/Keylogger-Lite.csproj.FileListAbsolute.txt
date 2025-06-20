@@ -12,3 +12,4 @@ D:\Документи_2\Keylogger-Lite\obj\Debug\net8.0-windows\refint\Keylogger
 D:\Документи_2\Keylogger-Lite\obj\Debug\net8.0-windows\Keylogger-Lite.pdb
 D:\Документи_2\Keylogger-Lite\obj\Debug\net8.0-windows\Keylogger-Lite.genruntimeconfig.cache
 D:\Документи_2\Keylogger-Lite\obj\Debug\net8.0-windows\ref\Keylogger-Lite.dll
+D:\Документи_2\Keylogger-Lite\obj\Debug\net8.0-windows\Keylogger-Lite.sourcelink.json
