@@ -12,9 +12,9 @@ namespace KeyloggerLite
         private readonly DataGridViewConfigurator gridConfigurator;
         private readonly FileSaver fileSaver;
 
-        private Label lblWorkingTimeLabel, lblWorkingTime, lblTotal;
-        private RoundedButton btnStartFinish, btnInfo, btnClear, btnSaveAs, btnBack;
-        private Panel mainPanel, infoPanel;
+        private Label? lblWorkingTimeLabel, lblWorkingTime, lblTotal;
+        private RoundedButton? btnStartFinish, btnInfo, btnClear, btnSaveAs, btnBack;
+        private Panel? mainPanel, infoPanel;
 
         public UIManager(MainForm form, KeyLogger keyLogger)
         {
@@ -23,8 +23,8 @@ namespace KeyloggerLite
             this.gridConfigurator = new DataGridViewConfigurator();
             this.fileSaver = new FileSaver(keyLogger);
 
-            keyLogger.TimeUpdated += time => lblWorkingTime.Text = time;
-            keyLogger.TotalKeyPressesUpdated += count => lblTotal.Text = $"Total: {count}";
+            keyLogger.TimeUpdated += time => lblWorkingTime!.Text = time;
+            keyLogger.TotalKeyPressesUpdated += count => lblTotal!.Text = $"Total: {count}";
             keyLogger.KeysUpdated += keyCounts => gridConfigurator.UpdateGrid(keyCounts);
         }
 
@@ -71,35 +71,40 @@ namespace KeyloggerLite
             return btn;
         }
 
-        private void BtnStartFinish_Click(object s, EventArgs e)
+        private void BtnStartFinish_Click(object? s, EventArgs e)
         {
             if (!keyLogger.IsRunning) keyLogger.Start(); else keyLogger.Stop();
         }
 
-        private void BtnInfo_Click(object s, EventArgs e)
+        private void BtnInfo_Click(object? s, EventArgs e)
         {
-            mainPanel.Visible = false;
-            infoPanel.Visible = true;
+            if (mainPanel != null)
+                mainPanel.Visible = false;
+            if (infoPanel != null)
+                infoPanel.Visible = true;
 
-            infoPanel.Controls.Add(lblWorkingTimeLabel);
-            infoPanel.Controls.Add(lblWorkingTime);
-            infoPanel.Controls.Add(lblTotal);
+            infoPanel?.Controls.Add(lblWorkingTimeLabel!);
+            infoPanel?.Controls.Add(lblWorkingTime!);
+            infoPanel?.Controls.Add(lblTotal!);
 
         }
 
-        private void BtnClear_Click(object s, EventArgs e) => keyLogger.Clear();
-        private void BtnSaveAs_Click(object s, EventArgs e)
+        private void BtnClear_Click(object? s, EventArgs e) => keyLogger.Clear();
+        private void BtnSaveAs_Click(object? s, EventArgs e)
         {
             if (!keyLogger.IsRunning && keyLogger.LoggedKeys.Count > 0)
                 fileSaver.SaveToFile();
         }
-        private void BtnBack_Click(object s, EventArgs e)
+        private void BtnBack_Click(object? s, EventArgs e)
         {
-            infoPanel.Visible = false;
-            mainPanel.Visible = true;
-
-            mainPanel.Controls.Add(lblWorkingTimeLabel);
-            mainPanel.Controls.Add(lblWorkingTime);
+            if (infoPanel != null)
+                infoPanel.Visible = false;
+            if (mainPanel != null)
+            {
+                mainPanel.Visible = true;
+                mainPanel.Controls.Add(lblWorkingTimeLabel!);
+                mainPanel.Controls.Add(lblWorkingTime!);
+            }
         }
     }
 }
