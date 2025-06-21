@@ -60,10 +60,11 @@ namespace KeyloggerLite
                 loggedKeys.Add(key);
                 totalKeyPresses++;
                 TotalKeyPressesUpdated?.Invoke(totalKeyPresses);
+                KeysUpdated?.Invoke(GetKeyCounts());
             }
         }
 
-        public Dictionary<string, int> GetKeyCounts()
+        private Dictionary<string, int> GetKeyCounts()
         {
             var keyCounts = new Dictionary<string, int>();
             foreach (string key in loggedKeys)
