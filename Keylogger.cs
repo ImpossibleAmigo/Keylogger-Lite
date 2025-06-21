@@ -64,7 +64,7 @@ namespace KeyloggerLite
             }
         }
 
-        private Dictionary<string, int> GetKeyCounts()
+        public Dictionary<string, int> GetKeyCounts()
         {
             var keyCounts = new Dictionary<string, int>();
             foreach (string key in loggedKeys)
