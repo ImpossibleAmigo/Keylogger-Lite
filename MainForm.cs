@@ -39,6 +39,16 @@ namespace KeyloggerLite
             KeyDown += MainForm_KeyDown;
             KeyPress += MainForm_KeyPress;
         }
+
+        private void MainForm_KeyPress(object? sender, KeyPressEventArgs e)
+        {
+            // Optionally handle key press events here, or leave empty if not needed
+        }
+
+        private void MainForm_KeyDown(object? sender, KeyEventArgs e)
+        {
+            // Optionally handle key down events here, or leave empty if not needed
+        }
         
 
         protected override void OnFormClosed(FormClosedEventArgs e)
@@ -68,7 +78,7 @@ namespace KeyloggerLite
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            globalHook.Stop();
+            globalHook?.Dispose();
             base.OnFormClosing(e);
         }
     }
