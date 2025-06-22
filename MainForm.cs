@@ -16,12 +16,7 @@ namespace KeyloggerLite
             InitializeComponent();
             uiManager.InitializeUI();
             globalHook = new GlobalKeyboardHook();
-            globalHook.KeyPressed += key =>
-            {
-                if (keyLogger.IsRunning)
-                    keyLogger.HandleKeyPress(key.ToString());
-            };
-
+            globalHook.KeyPressed += OnGlobalKeyPressed;
         }
 
         public KeyLogger KeyLogger => keyLogger;
@@ -70,7 +65,6 @@ namespace KeyloggerLite
         {
             if (!keyLogger.IsRunning) return;
 
-             // Модифікатори, службові клавіші (Enter, Shift тощо)
             if (key < Keys.Space || key > Keys.Z || Control.ModifierKeys != Keys.None)
                 keyLogger.HandleKeyPress($"[{key}]");
             else

@@ -14,7 +14,9 @@ namespace KeyloggerLite
             {
                 Location = new Point(10, 150),
                 Size = new Size(445, 352),
+                TabStop = false,
                 ReadOnly = true,
+                SelectionMode = DataGridViewSelectionMode.FullRowSelect,
                 AllowUserToAddRows = false,
                 AllowUserToResizeColumns = false,
                 RowHeadersVisible = false,
@@ -37,21 +39,11 @@ namespace KeyloggerLite
                     Font = new Font("Segoe UI", 12F, FontStyle.Regular),
                     Alignment = DataGridViewContentAlignment.TopLeft
                 },
-                EnableHeadersVisualStyles = false,
-                TabStop = false
+                EnableHeadersVisualStyles = false
             };
 
+            dgvKeys.StandardTab = true;
             dgvKeys.MouseDown += (s, e) => dgvKeys.Parent?.Focus();
-            dgvKeys.PreviewKeyDown += (s, e) =>
-            {
-                if (e.KeyCode == Keys.Space)
-                e.IsInputKey = false;
-            };
-            dgvKeys.KeyDown += (s, e) =>
-            {
-                if (e.KeyCode == Keys.Space)
-                    e.Handled = true; 
-            };
 
             dgvKeys.Columns.Add("Keys", "Keys");
             dgvKeys.Columns.Add("Quantity", "Quantity");

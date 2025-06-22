@@ -26,11 +26,6 @@ namespace KeyloggerLite
             {
                 isRunning = true;
                 timer.Start();
-                loggedKeys.Clear();
-                seconds = 0;
-                totalKeyPresses = 0;
-                TimeUpdated?.Invoke("0D; 0H; 0M; 0S");
-                TotalKeyPressesUpdated?.Invoke(0);
             }
         }
 
