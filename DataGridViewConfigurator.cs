@@ -37,7 +37,20 @@ namespace KeyloggerLite
                     Font = new Font("Segoe UI", 12F, FontStyle.Regular),
                     Alignment = DataGridViewContentAlignment.TopLeft
                 },
-                EnableHeadersVisualStyles = false
+                EnableHeadersVisualStyles = false,
+                TabStop = false
+            };
+
+            dgvKeys.MouseDown += (s, e) => dgvKeys.Parent?.Focus();
+            dgvKeys.PreviewKeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Space)
+                e.IsInputKey = false;
+            };
+            dgvKeys.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Space)
+                    e.Handled = true; 
             };
 
             dgvKeys.Columns.Add("Keys", "Keys");
