@@ -8,13 +8,20 @@ namespace KeyloggerLite
     {
         private readonly UIManager uiManager;
         private readonly KeyLogger keyLogger;
-
+        private GlobalKeyboardHook? globalHook;
         public MainForm()
         {
             keyLogger = new KeyLogger();
             uiManager = new UIManager(this, keyLogger);
             InitializeComponent();
             uiManager.InitializeUI();
+            globalHook = new GlobalKeyboardHook();
+            globalHook.KeyPressed += key =>
+            {
+                if (keyLogger.IsRunning)
+                    keyLogger.HandleKeyPress(key.ToString());
+            };
+
         }
 
         public KeyLogger KeyLogger => keyLogger;
@@ -32,6 +39,13 @@ namespace KeyloggerLite
             MouseDown += Form_MouseDown;
             KeyDown += MainForm_KeyDown;
             KeyPress += MainForm_KeyPress;
+        }
+        
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            globalHook?.Dispose();
+            base.OnFormClosed(e);
         }
 
         private void Form_MouseDown(object? sender, MouseEventArgs e)
