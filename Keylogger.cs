@@ -60,7 +60,6 @@ namespace KeyloggerLite
                 loggedKeys.Add(key);
                 totalKeyPresses++;
                 TotalKeyPressesUpdated?.Invoke(totalKeyPresses);
-
                 KeysUpdated?.Invoke(GetKeyCounts());
             }
         }
